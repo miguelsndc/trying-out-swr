@@ -1,9 +1,10 @@
 import { format } from 'date-fns';
 import { useRouter } from 'next/router';
-import { mutate as mutateGlobal } from 'swr';
+import { GetServerSideProps, GetServerSidePropsContext } from 'next';
+import { mutate as mutateGlobal } from 'swr/';
 import Image from 'next/image';
 import useSWR from 'swr';
-import { api } from '../services/api';
+import { api } from '../../services/api';
 import { FormEvent, useState } from 'react';
 
 type User = {
@@ -15,16 +16,21 @@ type User = {
   picture: string;
 };
 
-const UserDetails = () => {
+type Props = {
+  initialUser: User;
+};
+
+const UserDetails = ({ initialUser }: Props) => {
   const router = useRouter();
   const { id } = router.query;
 
   const {
     data: user,
-
     mutate,
     error,
-  } = useSWR<User>(`/users/${id}`, url => api.get(url).then(r => r.data));
+  } = useSWR<User>(`/users/${id}`, url => api.get(url).then(r => r.data), {
+    fallbackData: initialUser,
+  });
 
   const [name, setName] = useState('');
 
@@ -86,3 +92,17 @@ const UserDetails = () => {
 };
 
 export default UserDetails;
+
+export const getServerSideProps: GetServerSideProps = async (
+  ctx: GetServerSidePropsContext
+) => {
+  const { id } = ctx.query;
+
+  const { data } = await api.get(`/users/${id}`);
+
+  return {
+    props: {
+      initialUser: data,
+    },
+  };
+};
