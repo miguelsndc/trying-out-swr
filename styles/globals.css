@@ -1,16 +1,82 @@
 html,
 body {
-  padding: 0;
-  margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
+html,
+body,
+#__next {
+  width: 100%;
+  height: 100%;
+}
+
 a {
-  color: inherit;
   text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
 }
 
 * {
   box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+.container {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.user {
+  margin-bottom: 2rem;
+}
+
+.user h1 {
+  font-size: 1.25rem;
+}
+
+.user img {
+  border-radius: 50%;
+  background: lightgray;
+}
+
+.user > div {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.3rem;
+}
+
+.user span {
+  color: #8f8e8e;
+}
+
+.user p {
+  font-size: 0.875rem;
+}
+
+.user-detail {
+  width: 100%;
+  height: 100%;
+  margin-top: 15vh;
+  text-align: center;
+}
+
+.user-detail img {
+  background: lightgray;
+  border-radius: 50%;
+}
+
+.user-detail h1 {
+  font-size: 2rem;
+}
+
+.user-detail p {
+  max-width: 90ch;
+  display: block;
+  margin: 1rem auto;
 }
